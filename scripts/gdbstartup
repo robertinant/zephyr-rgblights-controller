@@ -1,0 +1,6 @@
+tar extended-remote 10.0.0.230:2331
+set output-radix 16
+load build/zephyr-rgblights-controller/zephyr/zephyr-rgblights-controller.signed.bin.elf 0xc000 
+file build/mcuboot/zephyr/zephyr.elf 
+load
+b main

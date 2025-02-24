@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "led_strip.h": "c",
+            "bluetooth.h": "c",
+            "random": "c",
+            "*.tcc": "c"
+        }
+    }
+}

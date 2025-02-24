@@ -1,0 +1,42 @@
+manifest:
+  defaults:
+    remote: upstream
+  remotes:
+  - name: flukecorp-emu
+    url-base: git@github.com:FlukeCorp-emu
+  - name: upstream
+    url-base: https://github.com/zephyrproject-rtos
+  - name: babblesim
+    url-base: https://github.com/BabbleSim
+  projects:
+  - groups:
+    - hal
+    name: cmsis
+    path: zephyr/modules/hal/cmsis
+    revision: 4b96cbb174678dcd3ca86e11e1f24bc5f8726da0
+  - name: cmsis-dsp
+    path: zephyr/modules/lib/cmsis-dsp
+    revision: 6489e771e9c405f1763b52d64a3f17a1ec488ace
+  - groups:
+    - hal
+    name: hal_nordic
+    path: zephyr/modules/hal/nordic
+    revision: ab5cb2e2faeb1edfad7a25286dcb513929ae55da
+  - name: mcuboot
+    path: zephyr/bootloader/mcuboot
+    revision: ea2410697dd0262edec041a0ccb07fdbde7c1aff
+  - clone-depth: 1
+    name: zephyr
+    path: zephyr/zephyr
+    revision: v3.7.1
+    west-commands: scripts/west-commands.yml
+  - name: tinycrypt
+    revision: 1012a3ebee18c15ede5efc8332ee2fc37817670f
+    path: zephyr/modules/crypto/tinycrypt
+    groups:
+    - crypto
+  - name: mbedtls
+    revision: a78176c6ff0733ba08018cba4447bd3f20de7978
+    path: zephyr/modules/crypto/mbedtls
+    groups:
+     - crypto

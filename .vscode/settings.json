@@ -1,0 +1,14 @@
+{
+    // Hush CMake
+    "cmake.configureOnOpen": false,
+    // IntelliSense
+    "C_Cpp.default.compilerPath": "/opt/zephyr-sdk-0.16.1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    // Obey thy master!
+    "editor.formatOnSave": true,
+    "[c]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "gdbTarget": "127.0.0.1:2331",
+}

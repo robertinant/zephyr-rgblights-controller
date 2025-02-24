@@ -1,0 +1,70 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "West Build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "linux": {
+                "command": "/usr/local/bin/west"
+            },
+            "args": [
+                "build",
+                "-p",
+                "auto",
+                "-b",
+                "nicekeyboards_nicenano",
+                "--",
+                "-DBOARD_ROOT=/storage2/projects/zephyr-rgblights-controller/",
+                "-DDTC_OVERLAY_FILE=/storage2/projects/zephyr-rgblights-controller/boards/nicekeyboards_nicenano_nrf52840.overlay"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            // Advanced trickery to be able to debug from outside Fluke network to machine
+            // on the inside that GDB server connected to the physical board.
+            "label": "Setup GDB tunnel",
+            "type": "shell",
+            "group": {
+                "kind": "util",
+                "isDefault": true
+            },
+            "linux": {
+                "command": "ssh"
+            },
+            "args": [
+                "-N",
+                "-R",
+                "50000:localhost:50000",
+                "-R",
+                "50001:localhost:50001",
+                "-R",
+                "50002:localhost:50002",
+                "docker@somehost.org",
+                "-p",
+                "2222"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "West Flash",
+            "type": "shell",
+            "linux": {
+                "command": "${userHome}/zephyrproject/.venv/bin/west"
+            },
+            "args": [
+                "flash"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+    ],
+}

@@ -1,0 +1,128 @@
+/*
+* Copyright (c) 2022 Embla Flatlandsmo <embla.flatlandsmo@gmail.com>
+*
+* SPDX-License-Identifier: Apache-2.0
+*/
+
+/dts-v1/;
+#include <nordic/nrf52840_qiaa.dtsi>
+#include "nicekeyboards_nicenano_nrf52840-pinctrl.dtsi"
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/led/led.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+	zephyr,user {
+		powerpin-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+	};
+	
+	model = "Nicekeyboards nice!nano nRF52840";
+	compatible = "nicekeyboards,nicenano-nrf52840";
+	
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,ieee802154 = &ieee802154;
+		zephyr,code-partition = &slot0_partition;
+	};
+	
+	leds {
+		compatible = "gpio-leds";
+		led0: led_0 {
+			gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+			label = "Blue LED";
+		};
+		status = "okay";
+	};
+	
+	/* These aliases are provided for compatibility with samples */
+	aliases {
+		led0 = &led0;
+		watchdog0 = &wdt0;
+		led-strip = &ws2812;
+	};
+};
+
+&adc {
+	status = "okay";
+};
+
+&uicr {
+	gpio-as-nreset;
+};
+
+&gpiote {
+	status = "okay";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&spi1 {
+	status = "okay";
+	pinctrl-0 = <&spi2_default>;
+	pinctrl-1 = <&spi2_sleep>;
+	pinctrl-names = "default", "sleep";
+	ws2812: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		reg = <0>;
+		spi-max-frequency = <4000000>;
+		chain-length = <116>;
+		color-mapping = <LED_COLOR_ID_BLUE
+		LED_COLOR_ID_GREEN
+		LED_COLOR_ID_RED>;
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+	};
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 0x0000C000>;
+		};
+		slot0_partition: partition@c000 {
+			label = "image-0";
+			reg = <0x0000C000 0x00076000>;
+		};
+		slot1_partition: partition@82000 {
+			label = "image-1";
+			reg = <0x00082000 0x00076000>;
+		};
+		
+		/*
+		* The flash starting at 0x000f8000 and ending at
+		* 0x000fffff is reserved for use by the application.
+		*/
+		
+		/*
+		* Storage partition will be used by FCB/LittleFS/NVS
+		* if enabled.
+		*/
+		storage_partition: partition@f8000 {
+			label = "storage";
+			reg = <0x000f8000 0x00008000>;
+		};
+	};
+};
+
+zephyr_udc0: &usbd {
+	compatible = "nordic,nrf-usbd";
+	status = "okay";
+	
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};

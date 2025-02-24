@@ -1,0 +1,38 @@
+#define BTN_PATTERN 0
+#define BTN_RIGHT   1
+#define BTN_LEFT    2
+#define BTN_HAZARD  3
+
+/ {
+    aliases {
+        led0 = &led0;
+        sw0 = &button0;
+        sw1 = &button1;
+        sw2 = &button2;
+        sw3 = &button3;
+    };
+
+    buttons {
+        compatible = "gpio-keys";
+        button0: button_0 {
+            gpios = <&gpio1 6 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Push button switch 0";
+            zephyr,code = <BTN_PATTERN>;
+        };
+        button1: button_1 {
+            gpios = <&gpio1 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Push button switch 1";
+            zephyr,code = <BTN_RIGHT>;
+        };
+        button2: button_2 {
+            gpios = <&gpio0 9 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Push button switch 2";
+            zephyr,code = <BTN_LEFT>;
+        };
+        button3: button_3 {
+            gpios = <&gpio0 10 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Push button switch 3";
+            zephyr,code = <BTN_HAZARD>;
+        };
+    };
+};

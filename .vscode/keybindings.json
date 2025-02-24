@@ -1,0 +1,10 @@
+{
+    "key": "ctrl+b",
+    "command": "workbench.action.tasks.runTask",
+    "args": "West Build"
+},
+{
+    "key": "ctrl+d",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Remote Debug"
+}
