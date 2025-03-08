@@ -2,12 +2,8 @@ manifest:
   defaults:
     remote: upstream
   remotes:
-  - name: flukecorp-emu
-    url-base: git@github.com:FlukeCorp-emu
   - name: upstream
     url-base: https://github.com/zephyrproject-rtos
-  - name: babblesim
-    url-base: https://github.com/BabbleSim
   projects:
   - groups:
     - hal
@@ -30,13 +26,21 @@ manifest:
     path: zephyr/zephyr
     revision: v3.7.1
     west-commands: scripts/west-commands.yml
-  - name: tinycrypt
-    revision: 1012a3ebee18c15ede5efc8332ee2fc37817670f
-    path: zephyr/modules/crypto/tinycrypt
-    groups:
-    - crypto
   - name: mbedtls
     revision: a78176c6ff0733ba08018cba4447bd3f20de7978
     path: zephyr/modules/crypto/mbedtls
     groups:
      - crypto
+  - name: tinycrypt
+    revision: 1012a3ebee18c15ede5efc8332ee2fc37817670f
+    path: zephyr/modules/crypto/tinycrypt
+    groups:
+    - crypto
+  - name: zcbor
+    revision: 75d088037eb237b18e7ec1f47c9ce494b9b95aab
+    path: zephyr/modules/lib/zcbor
+  - name: littlefs
+    revision: 408c16a909dd6cf128874a76f21c793798c9e423
+    path: zephyr/modules/fs/littlefs
+    groups:
+    - fs
